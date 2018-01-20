@@ -45,11 +45,11 @@ class App extends Component {
       const apiKey = 'bb2c8e49097ff6ad';
 
       let location = latitude + ',' + longitude;
-      let locWeatherUrl = `http://api.wunderground.com/api/${apiKey}/conditions/q/${location}.json`;
+      let locWeatherUrl = `https://api.wunderground.com/api/${apiKey}/conditions/q/${location}.json`;
       let weatherForecastUrl = `http://api.wunderground.com/api/${apiKey}/forecast10day/q/${location}.json`;
 
       if (searchValue) {
-        locWeatherUrl = `http://api.wunderground.com/api/${apiKey}/conditions/q/${searchValue}.json`;
+        locWeatherUrl = `https://api.wunderground.com/api/${apiKey}/conditions/q/${searchValue}.json`;
         weatherForecastUrl = `http://api.wunderground.com/api/${apiKey}/forecast10day/q/${searchValue}.json`;
       }
 
