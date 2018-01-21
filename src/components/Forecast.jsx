@@ -22,16 +22,13 @@ class Forecast extends Component {
         {forecastWeather.map(forecast => this.createForecastComponet(forecast))}
       </div>
     ) : (
-      <div className="row forecastToggle" onClick={() => this.setState({ showForecast: true })}>
-        Click To See Forecast
+      <div id="forecast" className="row forecastToggle" onClick={() => this.setState({ showForecast: true })}>
+        <p>Click To See Forecast</p>
       </div>
     );
   }
 
   render() {
-    {
-      this.showForecast();
-    }
     return this.showForecast();
   }
 }

@@ -22,8 +22,16 @@ body {
 }
 
 .forecastToggle {
-  height: 40px;
-  padding-top: 10px;
+  height: 75px;
+  width: 100%;
+  padding-top: 35px;
+  padding-bottom: 30px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid black;
+}
+
+.forecastToggle p {
+  margin: 0;
 }
 
 .forecast,

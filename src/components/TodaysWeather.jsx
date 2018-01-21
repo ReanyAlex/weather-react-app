@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Forecast from './Forecast';
+import Chart from './Chart';
 
 class TodaysWeather extends Component {
   render() {
@@ -48,6 +49,7 @@ class TodaysWeather extends Component {
           </div>
         </div>
         <Forecast forecastWeather={this.props.forecastWeather} />
+        <Chart hourlyData={this.props.hourlyData} />
       </div>
     );
   }

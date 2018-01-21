@@ -39,6 +39,7 @@ class Today extends Component {
           currentWeather={this.props.currentWeather}
           forecastWeather={this.props.forecastWeather}
           currentTime={this.state.currentTime}
+          hourlyData={this.props.hourlyData}
         />
         <Map location={this.props.currentLocation} />
       </div>

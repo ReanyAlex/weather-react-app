@@ -9,7 +9,9 @@ class App extends Component {
   state = {
     currentLocation: {},
     currentWeather: {},
-    forecastWeather: []
+    forecastWeather: [],
+    hourlyData: [],
+    searchError: false
   };
 
   componentDidMount() {
@@ -47,19 +49,23 @@ class App extends Component {
       let location = latitude + ',' + longitude;
       let locWeatherUrl = `https://api.wunderground.com/api/${apiKey}/conditions/q/${location}.json`;
       let weatherForecastUrl = `https://api.wunderground.com/api/${apiKey}/forecast10day/q/${location}.json`;
-
+      let houlryForecast = `http://api.wunderground.com/api/${apiKey}/hourly/q/${location}.json`;
       if (searchValue) {
         locWeatherUrl = `https://api.wunderground.com/api/${apiKey}/conditions/q/${searchValue}.json`;
         weatherForecastUrl = `https://api.wunderground.com/api/${apiKey}/forecast10day/q/${searchValue}.json`;
+        houlryForecast = `http://api.wunderground.com/api/${apiKey}/hourly/q/${searchValue}.json`;
       }
 
       const current = axios.get(locWeatherUrl).then(current => current);
       const forecast = axios.get(weatherForecastUrl).then(forcast => forcast);
+      const hourly = axios.get(houlryForecast);
 
-      Promise.all([current, forecast])
+      Promise.all([current, forecast, hourly])
         .then(weatherData => {
           const current = weatherData[0];
           const forecast = weatherData[1];
+          const hourly = weatherData[2].data.hourly_forecast;
+
           const { city, state } = current.data.current_observation.display_location;
           const { weather, icon_url, temp_f, relative_humidity, precip_today_in } = current.data.current_observation;
           const high_f = forecast.data.forecast.simpleforecast.forecastday[0].high.fahrenheit;
@@ -84,24 +90,33 @@ class App extends Component {
             latitude: current.data.current_observation.display_location.latitude,
             longitude: current.data.current_observation.display_location.longitude
           };
+          const hourlyData = { tempArray: [], initialHour: hourly[0].FCTTIME.hour };
 
-          this.setState({ currentWeather, forecastWeather, currentLocation });
+          hourly.forEach(hour => {
+            hourlyData.tempArray.push(+hour.temp.english);
+          });
+          this.setState({ currentWeather, forecastWeather, currentLocation, hourlyData, searchError: false });
           this.backgroundImage(weather);
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          console.log(err);
+          this.setState({ searchError: true });
+        });
     }
   }
 
   shouldRender() {
-    if (!(Object.keys(this.state.currentWeather).length === 0)) {
+    const { currentWeather, forecastWeather, currentLocation, hourlyData } = this.state;
+    if (!(Object.keys(currentWeather).length === 0)) {
       return (
         <div>
           <Search searchLocation={this.searchLocation.bind(this)} />
           <div className="wrapper content-box">
             <Today
-              currentWeather={this.state.currentWeather}
-              forecastWeather={this.state.forecastWeather}
-              currentLocation={this.state.currentLocation}
+              currentWeather={currentWeather}
+              forecastWeather={forecastWeather}
+              currentLocation={currentLocation}
+              hourlyData={hourlyData}
             />
           </div>
         </div>
