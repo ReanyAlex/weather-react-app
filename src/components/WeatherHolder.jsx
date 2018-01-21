@@ -7,7 +7,7 @@ import Map from './Map';
 
 class Today extends Component {
   state = {
-    currentTime: Number
+    currentTime: ''
   };
 
   componentDidMount() {
