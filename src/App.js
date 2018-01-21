@@ -49,11 +49,11 @@ class App extends Component {
       let location = latitude + ',' + longitude;
       let locWeatherUrl = `https://api.wunderground.com/api/${apiKey}/conditions/q/${location}.json`;
       let weatherForecastUrl = `https://api.wunderground.com/api/${apiKey}/forecast10day/q/${location}.json`;
-      let houlryForecast = `http://api.wunderground.com/api/${apiKey}/hourly/q/${location}.json`;
+      let houlryForecast = `https://api.wunderground.com/api/${apiKey}/hourly/q/${location}.json`;
       if (searchValue) {
         locWeatherUrl = `https://api.wunderground.com/api/${apiKey}/conditions/q/${searchValue}.json`;
         weatherForecastUrl = `https://api.wunderground.com/api/${apiKey}/forecast10day/q/${searchValue}.json`;
-        houlryForecast = `http://api.wunderground.com/api/${apiKey}/hourly/q/${searchValue}.json`;
+        houlryForecast = `https://api.wunderground.com/api/${apiKey}/hourly/q/${searchValue}.json`;
       }
 
       const current = axios.get(locWeatherUrl).then(current => current);
