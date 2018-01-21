@@ -1,26 +1,29 @@
 import React, { Component } from 'react';
 
 import TodaysWeather from './TodaysWeather';
+import Forecast from './Forecast';
+import Chart from './Chart';
 import Map from './Map';
 
 class Today extends Component {
   state = {
     currentTime: Number
   };
+
   componentDidMount() {
     this.getTime();
   }
 
   getTime() {
-    var today = new Date();
-    var day = today.getDay();
-    var daylist = ['Sunday', 'Monday', 'Tuesday', 'Wednesday ', 'Thursday', 'Friday', 'Saturday'];
+    const today = new Date();
+    const day = today.getDay();
+    const daylist = ['Sunday', 'Monday', 'Tuesday', 'Wednesday ', 'Thursday', 'Friday', 'Saturday'];
     let hours = today.getHours();
     let minutes = today.getMinutes();
     if (minutes < 10) {
       minutes = '0' + minutes;
     }
-    var suffix = 'AM';
+    let suffix = 'AM';
     if (hours >= 12) {
       suffix = 'PM';
       hours = hours - 12;
@@ -32,22 +35,17 @@ class Today extends Component {
     this.setState({ currentTime });
   }
 
-  renderCurrentWeather() {
+  render() {
     return (
       <div>
-        <TodaysWeather
-          currentWeather={this.props.currentWeather}
-          forecastWeather={this.props.forecastWeather}
-          currentTime={this.state.currentTime}
-          hourlyData={this.props.hourlyData}
-        />
+        <div className="col-8-md col-12-sm">
+          <TodaysWeather currentWeather={this.props.currentWeather} currentTime={this.state.currentTime} />
+          <Forecast forecastWeather={this.props.forecastWeather} />
+          <Chart hourlyData={this.props.hourlyData} />
+        </div>
         <Map location={this.props.currentLocation} />
       </div>
     );
-  }
-
-  render() {
-    return <div>{this.renderCurrentWeather()}</div>;
   }
 }
 

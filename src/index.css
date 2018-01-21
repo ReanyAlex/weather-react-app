@@ -292,3 +292,8 @@ div.tooltip {
   border-radius: 8px;
   pointer-events: none;
 }
+
+.searchError {
+  color: red;
+  font-size: 1.25rem;
+}

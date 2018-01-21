@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import conditionImage from './weatherJson';
 import Search from './components/Search';
-import Today from './components/Today';
+import WeatherHolder from './components/WeatherHolder';
 
 class App extends Component {
   state = {
@@ -71,7 +71,6 @@ class App extends Component {
           const high_f = forecast.data.forecast.simpleforecast.forecastday[0].high.fahrenheit;
           const low_f = forecast.data.forecast.simpleforecast.forecastday[0].low.fahrenheit;
 
-          //
           const currentWeather = {
             city,
             state,
@@ -106,13 +105,13 @@ class App extends Component {
   }
 
   shouldRender() {
-    const { currentWeather, forecastWeather, currentLocation, hourlyData } = this.state;
+    const { currentWeather, forecastWeather, currentLocation, hourlyData, searchError } = this.state;
     if (!(Object.keys(currentWeather).length === 0)) {
       return (
         <div>
-          <Search searchLocation={this.searchLocation.bind(this)} />
+          <Search searchLocation={this.searchLocation.bind(this)} searchError={searchError} />
           <div className="wrapper content-box">
-            <Today
+            <WeatherHolder
               currentWeather={currentWeather}
               forecastWeather={forecastWeather}
               currentLocation={currentLocation}

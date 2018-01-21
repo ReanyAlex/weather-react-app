@@ -52,6 +52,24 @@ class Chart extends Component {
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
+    function formatTimeAxis(d) {
+      d = d + parseInt(initialHour, 10);
+      if (d === 12 || d === 36) {
+        return 12 + ' PM';
+      } else if (d === 0 || d === 24) {
+        return 12 + ' AM';
+      } else if (d >= 12 && d < 25) {
+        return d - 12 + ' PM';
+      } else if (d >= 25 && d < 37) {
+        return d - 24 + ' AM';
+      } else if (d >= 37 && d < 49) {
+        return d - 36 + ' PM';
+      } else if (d >= 49 && d < 61) {
+        return d - 48 + ' AM';
+      }
+      return d + ' AM';
+    }
+
     svg
       .append('g')
       .attr('class', 'x axis')
@@ -60,23 +78,7 @@ class Chart extends Component {
         d3
           .axisBottom(xScale)
           .ticks(12)
-          .tickFormat(function(d) {
-            d = d + parseInt(initialHour, 10);
-            if (d === 12 || d === 36) {
-              return 12 + ' PM';
-            } else if (d === 0 || d === 24) {
-              return 12 + ' AM';
-            } else if (d >= 12 && d < 25) {
-              return d - 12 + ' PM';
-            } else if (d >= 25 && d < 37) {
-              return d - 24 + ' AM';
-            } else if (d >= 37 && d < 49) {
-              return d - 36 + ' PM';
-            } else if (d >= 49 && d < 61) {
-              return d - 48 + ' AM';
-            }
-            return d + ' AM';
-          })
+          .tickFormat(d => formatTimeAxis(d))
       )
       .selectAll('text')
       .style('text-anchor', 'end')
@@ -134,10 +136,10 @@ class Chart extends Component {
           .style('opacity', 0);
       });
   }
-  componentDidMount() {
-    // document.getElementById('d3').innerHTML = '';
-    // this.createLineChart();
-  }
+  // componentDidMount() {
+  // document.getElementById('d3').innerHTML = '';
+  // this.createLineChart();
+  // }
 
   componentDidUpdate() {
     // document.getElementById('d3').innerHTML = '';
