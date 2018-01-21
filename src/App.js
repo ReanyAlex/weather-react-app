@@ -121,7 +121,12 @@ class App extends Component {
         </div>
       );
     } else {
-      return <h1>Loading!</h1>;
+      return (
+        <div id="loading">
+          <h1>Loading!</h1>;
+          <img src="https://i.pinimg.com/originals/2a/12/3e/2a123e196bea0c213da8d6be602ec908.gif" alt="loading" />
+        </div>
+      );
     }
   }
 
