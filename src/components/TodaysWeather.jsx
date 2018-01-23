@@ -37,7 +37,7 @@ const TodaysWeather = props => {
           </div>
           <div className="">
             <div className="current__percip-head">Total Precip:</div>
-            <span className="current-percip">{currentWeather.precip_today_in}</span>
+            <span className="current-percip">{currentWeather.precip_today_in} in.</span>
           </div>
         </div>
       </div>

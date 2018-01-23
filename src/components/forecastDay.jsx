@@ -2,8 +2,12 @@ import React from 'react';
 
 const Forecast = props => {
   const { forecast } = props;
+  console.log(forecast);
   return (
     <div className="forecast col-forecast7-md col-3-sm">
+      <div>
+        <span className="forecast-date"> {forecast.date.weekday_short} </span>
+      </div>
       <div>
         <span className="forecast-date"> {`${forecast.date.monthname_short} ${forecast.date.day} `} </span>
       </div>

@@ -89,11 +89,13 @@ class App extends Component {
             latitude: current.data.current_observation.display_location.latitude,
             longitude: current.data.current_observation.display_location.longitude
           };
+
           const hourlyData = { tempArray: [], initialHour: hourly[0].FCTTIME.hour };
 
           hourly.forEach(hour => {
             hourlyData.tempArray.push(+hour.temp.english);
           });
+
           this.setState({ currentWeather, forecastWeather, currentLocation, hourlyData, searchError: false });
           this.backgroundImage(weather);
         })
